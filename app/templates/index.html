@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Revenue Demand Forecasting
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="brand-wrap">
+
+        <div class="brand-icon">
+            📊
+        </div>
+
+        <div>
+
+            <h1>
+                Revenue
+                <span>Demand Forecasting</span>
+            </h1>
+
+            <p>
+                Predict store sales demand using Machine Learning
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="top-cards">
+
+        <div class="top-card">
+
+            <div class="top-card-icon">
+                🗄️
+            </div>
+
+            <div>
+
+                <strong>
+                    Trained Model
+                </strong>
+
+                <span>
+                    Random Forest
+                </span>
+
+                <small>
+                    Production model
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-card">
+
+            <div class="top-card-icon">
+                📈
+            </div>
+
+            <div>
+
+                <strong>
+                    Goal
+                </strong>
+
+                <span>
+                    Predict Daily Sales
+                </span>
+
+                <small>
+                    Store & product demand
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-card">
+
+            <div class="top-card-icon">
+                🗓️
+            </div>
+
+            <div>
+
+                <strong>
+                    Use Case
+                </strong>
+
+                <span>
+                    Demand Planning
+                </span>
+
+                <small>
+                    Inventory & revenue
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="page">
+
+
+    <!-- =====================================================
+         INPUT CARD
+    ====================================================== -->
+
+    <section class="input-card">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <div class="title-row">
+
+                    <div class="title-icon">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Forecast Inputs
+                        </h2>
+
+                        <p>
+                            Enter the information required to estimate
+                            store-level product demand.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <p class="helper-text">
+
+                    The model combines historical demand,
+                    calendar information, store attributes,
+                    promotions and external factors.
+
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn purple"
+                    id="resetButton"
+                >
+                    ↻ Reset
+                </button>
+
+
+                <button
+                    type="button"
+                    class="secondary-btn blue"
+                    id="guideButton"
+                >
+                    ⓘ Feature Guide
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <form id="predictionForm">
+
+
+            <!-- =================================================
+                 BASIC INFORMATION
+            ================================================== -->
+
+            <section class="feature-section section-blue">
+
+                <div class="section-badge">
+                    1
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Basic Information
+                    </h3>
+
+                    <p>
+                        Store, product and business activity information.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid">
+
+
+                    <label class="field">
+
+                        <span>
+                            Store Number
+                            <em>ⓘ</em>
+                        </span>
+
+                        <input
+                            type="number"
+                            id="store_nbr"
+                            min="1"
+                            step="1"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Product Family
+                            <em>ⓘ</em>
+                        </span>
+
+                        <select
+                            id="family"
+                            required
+                        >
+                        </select>
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Items on Promotion
+                            <em>ⓘ</em>
+                        </span>
+
+                        <input
+                            type="number"
+                            id="onpromotion"
+                            min="0"
+                            step="1"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Transactions
+                            <em>ⓘ</em>
+                        </span>
+
+                        <input
+                            type="number"
+                            id="transactions"
+                            min="0"
+                            step="1"
+                            required
+                        >
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CALENDAR
+            ================================================== -->
+
+            <section class="feature-section section-green">
+
+                <div class="section-badge">
+                    2
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Calendar Information
+                    </h3>
+
+                    <p>
+                        Date-related features help the model understand
+                        trends and seasonality.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid seven">
+
+
+                    <label class="field">
+
+                        <span>Year</span>
+
+                        <input
+                            type="number"
+                            id="year"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>Month</span>
+
+                        <input
+                            type="number"
+                            id="month"
+                            min="1"
+                            max="12"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>Day</span>
+
+                        <input
+                            type="number"
+                            id="day"
+                            min="1"
+                            max="31"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Day of Week
+                        </span>
+
+                        <input
+                            type="number"
+                            id="day_of_week"
+                            min="0"
+                            max="6"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Day of Year
+                        </span>
+
+                        <input
+                            type="number"
+                            id="day_of_year"
+                            min="1"
+                            max="366"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Week of Year
+                        </span>
+
+                        <input
+                            type="number"
+                            id="week_of_year"
+                            min="1"
+                            max="53"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Quarter
+                        </span>
+
+                        <input
+                            type="number"
+                            id="quarter"
+                            min="1"
+                            max="4"
+                            required
+                        >
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 CALENDAR FLAGS
+            ================================================== -->
+
+            <section class="feature-section section-purple">
+
+                <div class="section-badge">
+                    3
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Calendar Flags
+                    </h3>
+
+                    <p>
+                        Special indicators for weekends and month boundaries.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid three">
+
+
+                    <label class="field">
+
+                        <span>
+                            Is Weekend?
+                        </span>
+
+                        <select id="is_weekend">
+
+                            <option value="0">
+                                No
+                            </option>
+
+                            <option value="1">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Is Month Start?
+                        </span>
+
+                        <select id="is_month_start">
+
+                            <option value="0">
+                                No
+                            </option>
+
+                            <option value="1">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Is Month End?
+                        </span>
+
+                        <select id="is_month_end">
+
+                            <option value="0">
+                                No
+                            </option>
+
+                            <option value="1">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LAG FEATURES
+            ================================================== -->
+
+            <section class="feature-section section-yellow">
+
+                <div class="section-badge">
+                    4
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Historical Demand
+                        <small>(Lag Features)</small>
+                    </h3>
+
+                    <p>
+                        Previous sales values help capture demand patterns.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid four">
+
+
+                    <label class="field">
+
+                        <span>
+                            Sales Lag 1
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_lag_1"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Sales Lag 7
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_lag_7"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Sales Lag 14
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_lag_14"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Sales Lag 28
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_lag_28"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ROLLING FEATURES
+            ================================================== -->
+
+            <section class="feature-section section-pink">
+
+                <div class="section-badge">
+                    5
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Rolling Statistics
+                    </h3>
+
+                    <p>
+                        Moving averages and demand variability across time windows.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid six">
+
+
+                    <label class="field">
+
+                        <span>
+                            7D Rolling Mean
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_mean_7"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            7D Rolling Std
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_std_7"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            14D Rolling Mean
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_mean_14"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            14D Rolling Std
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_std_14"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            28D Rolling Mean
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_mean_28"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            28D Rolling Std
+                        </span>
+
+                        <input
+                            type="number"
+                            id="sales_rolling_std_28"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STORE
+            ================================================== -->
+
+            <section class="feature-section section-teal">
+
+                <div class="section-badge">
+                    6
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        Store Information
+                    </h3>
+
+                    <p>
+                        Location and store characteristics.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid four">
+
+
+                    <label class="field">
+
+                        <span>
+                            City
+                        </span>
+
+                        <input
+                            type="text"
+                            id="city"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            State
+                        </span>
+
+                        <input
+                            type="text"
+                            id="state"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Store Type
+                        </span>
+
+                        <select id="type">
+
+                            <option value="A">
+                                A
+                            </option>
+
+                            <option value="B">
+                                B
+                            </option>
+
+                            <option value="C">
+                                C
+                            </option>
+
+                            <option value="D">
+                                D
+                            </option>
+
+                            <option value="E">
+                                E
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Cluster
+                        </span>
+
+                        <input
+                            type="number"
+                            id="cluster"
+                            min="1"
+                            required
+                        >
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 EXTERNAL FACTORS
+            ================================================== -->
+
+            <section class="feature-section section-cyan">
+
+                <div class="section-badge">
+                    7
+                </div>
+
+                <div class="section-copy">
+
+                    <h3>
+                        External Factors
+                    </h3>
+
+                    <p>
+                        External variables that can influence store demand.
+                    </p>
+
+                </div>
+
+
+                <div class="field-grid three">
+
+
+                    <label class="field">
+
+                        <span>
+                            Oil Price
+                            <em>ⓘ</em>
+                        </span>
+
+                        <input
+                            type="number"
+                            id="dcoilwtico"
+                            step="0.01"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Holiday Count
+                        </span>
+
+                        <input
+                            type="number"
+                            id="holiday_count"
+                            min="0"
+                            required
+                        >
+
+                    </label>
+
+
+                    <label class="field">
+
+                        <span>
+                            Is Holiday?
+                        </span>
+
+                        <select id="is_holiday">
+
+                            <option value="0">
+                                No
+                            </option>
+
+                            <option value="1">
+                                Yes
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PREDICT BUTTON
+            ================================================== -->
+
+            <button
+                type="submit"
+                class="predict-btn"
+                id="predictButton"
+            >
+                ✨ Predict Demand
+                <span>›</span>
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- =================================================
+             RESULT
+        ================================================== -->
+
+        <section class="side-card result-card">
+
+            <div class="side-title">
+
+                <div class="side-icon">
+                    📊
+                </div>
+
+                <h2>
+                    Prediction Result
+                </h2>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="result-symbol">
+                    🛒
+                </div>
+
+                <div>
+
+                    <p>
+                        Predicted Store Sales
+                    </p>
+
+                    <div id="predictionResult">
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="success-note">
+
+                ↗ Estimated sales demand generated by the trained
+                forecasting model.
+
+            </div>
+
+
+            <div
+                id="errorMessage"
+                class="error-message"
+            >
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SAMPLE INPUT
+        ================================================== -->
+
+        <section class="side-card">
+
+            <div class="side-title">
+
+                <div class="side-icon">
+                    📋
+                </div>
+
+                <h2>
+                    Sample Input
+                </h2>
+
+            </div>
+
+
+            <p class="side-text">
+
+                Select a predefined example and load its values
+                into the forecasting form.
+
+            </p>
+
+
+            <select
+                id="sampleSelector"
+                class="sample-selector"
+            >
+
+                <option value="">
+                    Select a sample...
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                id="sampleButton"
+                class="load-btn"
+            >
+                📄 Load Sample Data
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             HOW TO USE
+        ================================================== -->
+
+        <section class="side-card">
+
+            <div class="side-title">
+
+                <div class="side-icon">
+                    ⚙️
+                </div>
+
+                <h2>
+                    How to Use
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+                    <b>1</b>
+
+                    <span>
+                        Select a sample or enter your own values.
+                    </span>
+
+                </div>
+
+
+                <div class="step">
+
+                    <b>2</b>
+
+                    <span>
+                        Add historical demand and external factors.
+                    </span>
+
+                </div>
+
+
+                <div class="step">
+
+                    <b>3</b>
+
+                    <span>
+                        Click "Predict Demand".
+                    </span>
+
+                </div>
+
+
+                <div class="step">
+
+                    <b>4</b>
+
+                    <span>
+                        View predicted sales on the right.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FEATURE GUIDE
+        ================================================== -->
+
+        <section
+            class="side-card"
+            id="featureGuide"
+        >
+
+            <div class="side-title">
+
+                <div class="side-icon">
+                    💡
+                </div>
+
+                <h2>
+                    Feature Guide
+                </h2>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>1</b>
+
+                <span>
+                    <strong>Basic Information</strong>
+                    Store, product, promotions and transactions.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>2</b>
+
+                <span>
+                    <strong>Calendar</strong>
+                    Year, month, day and seasonal indicators.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>3</b>
+
+                <span>
+                    <strong>Calendar Flags</strong>
+                    Weekend and month boundary indicators.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>4</b>
+
+                <span>
+                    <strong>Historical Demand</strong>
+                    Previous sales at different time lags.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>5</b>
+
+                <span>
+                    <strong>Rolling Statistics</strong>
+                    Recent demand averages and variability.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>6</b>
+
+                <span>
+                    <strong>Store Information</strong>
+                    City, state, type and cluster.
+                </span>
+
+            </div>
+
+
+            <div class="guide-item">
+
+                <b>7</b>
+
+                <span>
+                    <strong>External Factors</strong>
+                    Oil price and holiday information.
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+    </aside>
+
+</main>
+
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>

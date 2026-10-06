@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
+
+# Dataset contents
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# Generated model contents
+models/*
+!models/.gitkeep
+
+# Generated artifacts
+artifacts/*
+!artifacts/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db

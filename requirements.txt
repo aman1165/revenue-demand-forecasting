@@ -1,0 +1,15 @@
+pandas
+numpy
+scikit-learn==1.7.2
+joblib
+xgboost
+pyyaml
+fastapi
+uvicorn[standard]
+pydantic
+jinja2
+pytest
+matplotlib
+seaborn
+jupyter
+ipykernel

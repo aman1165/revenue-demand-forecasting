@@ -1,0 +1,54 @@
+project:
+  name: "Revenue Demand Forecasting"
+  random_state: 42
+
+paths:
+  raw_data: "data/raw"
+  processed_data: "data/processed"
+  artifacts: "artifacts"
+  models: "models"
+
+data:
+  target: "sales"
+
+split:
+  train_ratio: 0.70
+  validation_ratio: 0.15
+  test_ratio: 0.15
+
+features:
+  lags:
+    - 1
+    - 7
+    - 14
+    - 28
+
+  rolling_windows:
+    - 7
+    - 14
+    - 28
+
+models:
+  random_forest:
+    n_estimators: 150
+    max_depth: 20
+    min_samples_leaf: 2
+    random_state: 42
+    n_jobs: -1
+
+  hist_gradient_boosting:
+    learning_rate: 0.05
+    max_iter: 300
+    max_leaf_nodes: 31
+    l2_regularization: 1.0
+    random_state: 42
+
+  xgboost:
+    n_estimators: 500
+    learning_rate: 0.05
+    max_depth: 8
+    subsample: 0.8
+    colsample_bytree: 0.8
+    objective: "reg:squarederror"
+    random_state: 42
+    n_jobs: -1
